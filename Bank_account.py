@@ -1,5 +1,5 @@
 import datetime
-from Customer import Customer
+from CustomerData import CustomerData
 from Money import Money
 from Transaction import Transaction
 from DateTime import DateTime
@@ -11,9 +11,9 @@ from Time import Time
 
 
 class BankAccount:
-    def __init__(self, customer: Customer, date, time, currency):
+    def __init__(self, customer: CustomerData, date, time, currency):
         try:
-            if type(customer) != Customer:
+            if type(customer) != CustomerData:
                 raise CustomerDataTypeError("customer", customer)
             elif type(currency) != str:
                 raise CustomerDataTypeError("currency", currency)
@@ -82,7 +82,7 @@ class BankAccount:
             return err
         else:
             self.__balance -= money_to_transfer
-            output_account.add(money_to_transfer)
+            output_account.__add__(money_to_transfer)
             self.__transactions_history.append(Transaction(money_to_transfer, description))
             return "Transfer completed successfully "
 
@@ -205,10 +205,10 @@ class BankAccount:
         return "Password changed successfully"
 
 
-b1 = BankAccount(Customer("Name", "Surname", Date(10, 1, 2000), "example1@gmail.com", "password_1", "11111111",
-                          "PN111111"), Date(12, 7, 2023), Time(11, 13, 0), "USD")
+b1 = BankAccount(CustomerData("Name", "Surname", Date(10, 1, 2000), "example1@gmail.com", "password_1", "11111111",
+                              "PN111111"), Date(12, 7, 2023), Time(11, 13, 0), "USD")
 b2 = BankAccount(
-    Customer("FN2", "LN2", Date(20, 2, 2000), "example2@gmail.com", "password_2", "222222222", "PN2222222"),
+    CustomerData("FN2", "LN2", Date(20, 2, 2000), "example2@gmail.com", "password_2", "222222222", "PN2222222"),
     Date(12, 7, 2020), Time(11, 13, 0), "AMD")
 
 # print(b2)
@@ -222,5 +222,5 @@ b2 = BankAccount(
 # b1 - Money("USD", 20)
 # print(b1.get_balance())
 # print(b1.deposit(Money("USD", 100), 10, 2))
-print(b1.freeze_account())
-print(b1.activate_account())
+# print(b1.freeze_account())
+# print(b1.activate_account())
